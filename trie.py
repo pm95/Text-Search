@@ -45,7 +45,7 @@ class TextSearcher:
     def __init__(self, path: str = ""):
         self.path: str = path
         self.text: str = ""
-        self.first_chars: list = []
+        self.trie: Node = Node("*")
 
     def load_text(self):
         if self.path == "":
@@ -58,34 +58,10 @@ class TextSearcher:
     def print_text(self):
         print(self.text)
 
-    def print_first_chars(self):
+    def print_trie(self):
         char: Node
         for char in self.first_chars:
             char.print_trie()
-
-    def extract_first_chars(self):
-        result: list = []
-        words: list = self.text.split(" ")
-        for word in words:
-            # modify these lines to improve runtime later on
-            char_present = False
-            c: Node
-            for c in self.first_chars:
-                if c.value == word[0]:
-                    char_present = True
-            if not char_present:
-                self.first_chars.append(Node(word[0]))
-        self.first_chars = self.first_chars
-
-    def generate_trie(self):
-        words: list = self.text.split(" ")
-        for word in words:
-            f: str = word[0]
-            for i in range(len(self.first_chars)):
-                first: Node = self.first_chars[i]
-                if f == first.value:
-                    for char in word[1:]:
-                        self.first_chars[i].add_child(Node(char))
 
 
 if __name__ == "__main__":
@@ -94,9 +70,4 @@ if __name__ == "__main__":
     t.load_text()
     t.print_text()
 
-    t.extract_first_chars()
-    t.print_first_chars()
-
-    t.generate_trie()
-
-    t.print_first_chars()
+    t.print_trie()
