@@ -61,7 +61,7 @@ class TextSearcher:
     def print_first_chars(self):
         char: Node
         for char in self.first_chars:
-            char.print_self()
+            char.print_trie()
 
     def extract_first_chars(self):
         result: list = []
