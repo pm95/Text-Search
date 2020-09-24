@@ -8,20 +8,18 @@ import os
 class Node:
     def __init__(self, value: str = ""):
         super().__init__()
-        self.children: list = []
+        self.children: dict = {}
         self.value = value
 
     def add_child(self, child: "Node") -> bool:
-        c: Node
-        for c in self.children:
-            if c.value == child.value:
-                return False
-        self.children.append(child)
+        # if child.value not in self.children:
+        #     self.children[child.value]:dict = {}
+        self.children[child.value]
 
     def get_child(self, idx: int) -> "Node":
         return self.children[idx]
 
-    def generate_trie(self) -> list:
+    def generate_trie(self) -> dict:
         children_str: str = ""
         curr: str = ""
 
@@ -76,9 +74,14 @@ class TrieTextSearcher:
 
 
 if __name__ == "__main__":
-    t = TrieTextSearcher("./data.txt")
+    n = Node("*")
+    n.add_child("a")
+    n.add_child("b")
+    n.add_child("c")
+    n.add_child("c")
+    # t = TrieTextSearcher("./data.txt")
 
-    t.load_text()
-    t.print_text()
-    t.generate_trie()
-    t.print_trie()
+    # t.load_text()
+    # t.print_text()
+    # t.generate_trie()
+    # t.print_trie()
