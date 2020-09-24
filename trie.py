@@ -29,10 +29,13 @@ class Node:
                 curr = c.generate_trie()
             children_str += curr + ", "
 
-        return "%s:[%s]" % (
+        return "%s: [%s]" % (
             self.value,
             children_str
         )
+
+    def print_self(self):
+        print(self.value)
 
     def print_trie(self):
         print(self.generate_trie())
