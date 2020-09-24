@@ -78,8 +78,8 @@ class Trie:
         self.nodes["ROOT"][child] = {}
 
     def add_word(self, word: str, idx: int, trie: dict):
-        # if idx == len(word):
-        #     return trie
+        if idx == len(word):
+            return trie
 
         char: str = word[idx]
         trie = {
@@ -87,13 +87,13 @@ class Trie:
             char: {}
         }
 
-        print(char, trie)
+        print(trie)
 
-        # return self.add_word(
-        #     word=word,
-        #     idx=idx + 1,
-        #     trie=trie[word[idx]]
-        # )
+        return self.add_word(
+            word=word,
+            idx=idx + 1,
+            trie=trie
+        )
 
     def print(self):
         print(self.nodes)
