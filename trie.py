@@ -70,44 +70,42 @@ class TrieTextSearcher:
 
 class Trie:
     def __init__(self):
-        self.nodes: dict = {
-            "ROOT": {}
-        }
+        self.nodes: dict = {}
 
-    def add_child(self, child: str):
-        self.nodes["ROOT"][child] = {}
-
-    def add_word(self, word: str, idx: int, trie: dict):
-        if idx == len(word):
+    def _add_word(self, rev_word: str, idx: int, trie: dict) -> dict:
+        if idx == len(rev_word):
             return trie
 
-        char: str = word[idx]
+        char: str = rev_word[idx]
+
         trie = {
-            **trie,
-            char: {}
+            char: {
+                **trie
+            }
         }
 
-        print(trie)
-
-        return self.add_word(
-            word=word,
+        return self._add_word(
+            rev_word=rev_word,
             idx=idx + 1,
             trie=trie
         )
 
+    def add_word(self, word: str):
+        return self._add_word(
+            rev_word=''.join(reversed(word)),
+            idx=0,
+            trie={}
+        )
+
     def print(self):
-        print(self.nodes)
+        pass
 
 
 if __name__ == "__main__":
     t = Trie()
     word_trie = t.add_word(
-        word="hola",
-        idx=0,
-        trie={}
+        word="hola"
     )
-
-    t.print()
     print(word_trie)
 
     # t = TrieTextSearcher("./data.txt")
