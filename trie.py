@@ -18,6 +18,9 @@ class Node:
                 return False
         self.children.append(child)
 
+    def get_child(self, idx: int) -> "Node":
+        return self.children[idx]
+
     def generate_trie(self) -> list:
         children_str: str = ""
         curr: str = ""
@@ -41,7 +44,7 @@ class Node:
         print(self.generate_trie())
 
 
-class TextSearcher:
+class TrieTextSearcher:
     def __init__(self, path: str = ""):
         self.path: str = path
         self.text: str = ""
@@ -55,19 +58,42 @@ class TextSearcher:
         with open(self.path, "r") as fin:
             self.text = fin.read().lower()
 
+    def generate_sub_trie(self) -> Node:
+        pass
+
+    def generate_trie(self):
+        words: list = self.text.split(" ")
+
+        # populate root trie with first letters of each word in text
+        for word in words:
+            char = word[0]
+            node = Node(char)
+            self.trie.add_child(node)
+
+        # add words from text to trie, based on their starting characters
+        word: str
+        for word in words:
+            node: Node
+            for node in self.trie.children:
+                if node.value == word[0]:
+                    word_trie: Node = self.generate_sub_trie(
+                        word=word,
+                        idx=1,
+                        trie=node
+                    )
+                    node.add_child(word_trie)
+
     def print_text(self):
         print(self.text)
 
     def print_trie(self):
-        char: Node
-        for char in self.first_chars:
-            char.print_trie()
+        self.trie.print_trie()
 
 
 if __name__ == "__main__":
-    t = TextSearcher("./data.txt")
+    t = TrieTextSearcher("./data.txt")
 
     t.load_text()
     t.print_text()
-
+    t.generate_trie()
     t.print_trie()
