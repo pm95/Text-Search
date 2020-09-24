@@ -11,10 +11,8 @@ class Node:
         self.children: dict = {}
         self.value = value
 
-    def add_child(self, child: "Node") -> bool:
-        # if child.value not in self.children:
-        #     self.children[child.value]:dict = {}
-        self.children[child.value]
+    def add_child(self, child: str) -> None:
+        print(child)
 
     def get_child(self, idx: int) -> "Node":
         return self.children[idx]
@@ -22,12 +20,9 @@ class Node:
     def generate_trie(self) -> dict:
         children_str: str = ""
         curr: str = ""
-
-        c: Node
-        for c in self.children:
-            curr = c.value
-            if len(c.children) > 0:
-                curr = c.generate_trie()
+        for curr in self.children:
+            if len(self.children[curr]) > 0:
+                curr = curr.generate_trie()
             children_str += curr + ", "
 
         return "%s: [%s]" % (
@@ -39,7 +34,7 @@ class Node:
         print(self.value)
 
     def print_trie(self):
-        print(self.generate_trie())
+        print(self.children)
 
 
 class TrieTextSearcher:
@@ -73,12 +68,48 @@ class TrieTextSearcher:
         self.trie.print_trie()
 
 
+class Trie:
+    def __init__(self):
+        self.nodes: dict = {
+            "ROOT": {}
+        }
+
+    def add_child(self, child: str):
+        self.nodes["ROOT"][child] = {}
+
+    def add_word(self, word: str, idx: int, trie: dict):
+        # if idx == len(word):
+        #     return trie
+
+        char: str = word[idx]
+        trie = {
+            **trie,
+            char: {}
+        }
+
+        print(char, trie)
+
+        # return self.add_word(
+        #     word=word,
+        #     idx=idx + 1,
+        #     trie=trie[word[idx]]
+        # )
+
+    def print(self):
+        print(self.nodes)
+
+
 if __name__ == "__main__":
-    n = Node("*")
-    n.add_child("a")
-    n.add_child("b")
-    n.add_child("c")
-    n.add_child("c")
+    t = Trie()
+    word_trie = t.add_word(
+        word="hola",
+        idx=0,
+        trie={}
+    )
+
+    t.print()
+    print(word_trie)
+
     # t = TrieTextSearcher("./data.txt")
 
     # t.load_text()
