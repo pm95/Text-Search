@@ -2,7 +2,7 @@
 # Date: 09/23/2020
 # Purpose: Efficient trie-based text search algorithm
 
-from typing import Type
+import os
 
 
 class Node:
@@ -41,30 +41,56 @@ class Node:
         print(self.generate_trie())
 
 
-# create test nodes
-n0: Node = Node("a")
-n1: Node = Node("b")
-n2: Node = Node("c")
-n3: Node = Node("d")
-n4: Node = Node("e")
-n5: Node = Node("f")
-n6: Node = Node("g")
-n7: Node = Node("h")
-n8: Node = Node("i")
-n9: Node = Node("j")
+class TextSearcher:
+    def __init__(self, path: str = ""):
+        self.path: str = path
+        self.text: str = ""
+        self.first_chars: list = []
+
+    def load_text(self):
+        if self.path == "":
+            self.text = ""
+            return
+
+        with open(self.path, "r") as fin:
+            self.text = fin.read().lower()
+
+    def print_text(self):
+        print(self.text)
+
+    def print_first_chars(self):
+        char: Node
+        for char in self.first_chars:
+            char.print_self()
+
+    def extract_first_chars(self):
+        result: list = []
+        words: list = self.text.split(" ")
+        for word in words:
+            # modify these lines to improve runtime later on
+            char_present = False
+            c: Node
+            for c in self.first_chars:
+                if c.value == word[0]:
+                    char_present = True
+            if not char_present:
+                self.first_chars.append(Node(word[0]))
+        self.first_chars = self.first_chars
+
+    def generate_trie(self):
+        words: list = self.text.split(" ")
+        for word in words:
+            for char in word:
+                print(char)
 
 
-# add children to parent node
-n0.add_child(n1)  # a: b
-n0.add_child(n2)  # a: b, c
-n0.add_child(n3)  # a: b, c, d
-n0.add_child(n4)  # a: b, c, d, e
-n5.add_child(n6)  # a: b, c, d, e;  f: f
-n5.add_child(n7)
-n8.add_child(n9)
-n5.add_child(n8)
-n0.add_child(n5)  # a: b, c, d, e, f: f
+if __name__ == "__main__":
+    t = TextSearcher("./data.txt")
 
+    t.load_text()
+    t.print_text()
 
-# print parent node
-n0.print_trie()
+    t.extract_first_chars()
+    t.print_first_chars()
+
+    # t.generate_trie()
