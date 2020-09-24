@@ -63,8 +63,10 @@ class TrieTextSearcher:
 
     def generate_trie(self):
         words: list = self.text.split(" ")
-
-        print(words)
+        word: str
+        for word in words:
+            i: int
+            self.trie.add_child(Node(word[0]))
 
     def print_text(self):
         print(self.text)
