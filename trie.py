@@ -80,8 +80,12 @@ class TextSearcher:
     def generate_trie(self):
         words: list = self.text.split(" ")
         for word in words:
-            for char in word:
-                print(char)
+            f: str = word[0]
+            for i in range(len(self.first_chars)):
+                first: Node = self.first_chars[i]
+                if f == first.value:
+                    for char in word[1:]:
+                        self.first_chars[i].add_child(Node(char))
 
 
 if __name__ == "__main__":
@@ -93,4 +97,6 @@ if __name__ == "__main__":
     t.extract_first_chars()
     t.print_first_chars()
 
-    # t.generate_trie()
+    t.generate_trie()
+
+    t.print_first_chars()
