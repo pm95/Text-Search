@@ -64,24 +64,7 @@ class TrieTextSearcher:
     def generate_trie(self):
         words: list = self.text.split(" ")
 
-        # populate root trie with first letters of each word in text
-        for word in words:
-            char = word[0]
-            node = Node(char)
-            self.trie.add_child(node)
-
-        # add words from text to trie, based on their starting characters
-        word: str
-        for word in words:
-            node: Node
-            for node in self.trie.children:
-                if node.value == word[0]:
-                    word_trie: Node = self.generate_sub_trie(
-                        word=word,
-                        idx=1,
-                        trie=node
-                    )
-                    node.add_child(word_trie)
+        print(words)
 
     def print_text(self):
         print(self.text)
