@@ -109,61 +109,75 @@ class Trie:
 
         return word_trie
 
-    def _add_trie_to_root(self, word_trie: dict):
-        # WORD TRIE
-        # get keys of word trie
-        wt_keys: list = list(word_trie.keys())
+    def _add_trie_to_root(
+        self,
 
-        # get first char in word trie keys
-        wt_char: str = wt_keys[0]
+        word_trie: dict,
+        word_trie_keys: list,
+        word_trie_key: str,
 
-        # ROOT TRIE
-        # create copy of self.root
-        root: dict = self.root
+        root_trie: dict,
+        root_trie_keys: list,
+        root_trie_key: str,
+    ) -> dict:
+        if len(word_trie_keys) == 0:
+            print("word_trie_keys length is zero")
+            return root_trie
 
-        # get keys from root dict
-        rt_keys: list = list(root.keys())
+        # if keys are the same in word and root tries, reduce them by one level
+        if word_trie_key in root_trie:
+            new_word_trie: dict = word_trie[word_trie_key]
+            new_word_trie_keys: list = list(new_word_trie.keys())
+            new_word_trie_key: str = new_word_trie_keys[0]
+            new_root_trie: dict = root_trie[word_trie_key]
+            new_root_trie_keys: list = list(new_root_trie.keys())
+            new_root_trie_key: str = new_root_trie_keys[0]
 
-        # get first char in root trie keys
-        rt_char: str = rt_keys[0]
+            return self._add_trie_to_root(
+                word_trie=new_word_trie,
+                word_trie_keys=new_word_trie_keys,
+                word_trie_key=new_word_trie_key,
+                root_trie=new_root_trie,
+                root_trie_keys=new_root_trie_keys,
+                root_trie_key=new_root_trie_key,
+            )
 
-        # temporary root string
-        temp_root: str = ""
-
-        while len(wt_keys) != 0:
-            # get first char in word trie keys
-            wt_char = wt_keys[0]
-
-            # get first char in root trie keys
-            rt_char = rt_keys[0]
-
-            # traverse one more layer in word trie
-            word_trie: dict = word_trie[wt_char]
-
-            # if char from word trie is present in root trie, reduce root dict by one layer
-            if wt_char in root and temp_root == "":
-                print("%s in root" % wt_char)
-                root: dict = root[wt_char]
-
-            # otherwise, add new trie node to root
-            else:
-                print("%s NOT in root" % wt_char)
-
-                temp_root += wt_char
-                root[wt_char] = temp_root
-
-                print(temp_root)
-
-            # calculate word trie keys
-            wt_keys: list = list(word_trie.keys())
-
+        # if keys are not the same, add branch to trie
+        else:
+            print("word trie")
+            print(word_trie)
+            print(word_trie_keys)
+            print(word_trie_key)
             print("\n")
-
-        print(root)
+            print("root trie")
+            print(root_trie)
+            print(root_trie_keys)
+            print(root_trie_key)
+            print("\n")
+            print("\n")
+            # new_word_trie: dict = word_trie[word_trie_key]
+            # new_word_trie_keys: list = list(new_word_trie.keys())
+            # new_word_trie_key: str = new_word_trie_keys[0]
+            # new_root_trie: dict = root_trie[word_trie_key]
+            # new_root_trie_keys: list = list(root_trie.keys())
+            # new_root_trie_key: str = new_root_trie_keys[0]
 
     def add_word(self, word: str):
-        word_trie: Trie = self._generate_word_trie(word)
-        self._add_trie_to_root(word_trie=word_trie)
+        word_trie: dict = self._generate_word_trie(word)
+        word_trie_keys: list = list(word_trie.keys())
+        word_trie_key: str = word_trie_keys[0]
+        root_trie: dict = self.root
+        root_trie_keys: list = list(root_trie.keys())
+        root_trie_key: str = root_trie_keys[0]
+
+        self._add_trie_to_root(
+            word_trie=word_trie,
+            word_trie_keys=word_trie_keys,
+            word_trie_key=word_trie_key,
+            root_trie=root_trie,
+            root_trie_keys=root_trie_keys,
+            root_trie_key=root_trie_key,
+        )
 
 
 if __name__ == "__main__":
