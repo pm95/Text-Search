@@ -155,9 +155,18 @@ class Trie:
             print(root_trie_key)
             print("\n")
             print("\n")
-            # new_word_trie: dict = word_trie[word_trie_key]
-            # new_word_trie_keys: list = list(new_word_trie.keys())
-            # new_word_trie_key: str = new_word_trie_keys[0]
+
+            new_word_trie: dict = word_trie[word_trie_key]
+            new_word_trie_keys: list = list(new_word_trie.keys())
+            new_word_trie_key: str = new_word_trie_keys[0]
+
+            new_root_trie: dict = {
+                **root_trie,
+                word_trie_key: {}
+            }
+
+            print(new_root_trie)
+
             # new_root_trie: dict = root_trie[word_trie_key]
             # new_root_trie_keys: list = list(root_trie.keys())
             # new_root_trie_key: str = new_root_trie_keys[0]
