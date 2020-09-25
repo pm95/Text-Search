@@ -144,32 +144,42 @@ class Trie:
 
         # if keys are not the same, add branch to trie
         else:
-            print("word trie")
-            print(word_trie)
-            print(word_trie_keys)
-            print(word_trie_key)
-            print("\n")
-            print("root trie")
-            print(root_trie)
-            print(root_trie_keys)
-            print(root_trie_key)
-            print("\n")
-            print("\n")
+            # print("word trie")
+            # print(word_trie)
+            # print(word_trie_keys)
+            # print(word_trie_key)
+            # print("\n")
+            # print("root trie")
+            # print(root_trie)
+            # print(root_trie_keys)
+            # print(root_trie_key)
+            # print("\n")
+            # print("\n")
 
-            new_word_trie: dict = word_trie[word_trie_key]
-            new_word_trie_keys: list = list(new_word_trie.keys())
-            new_word_trie_key: str = new_word_trie_keys[0]
-
-            new_root_trie: dict = {
+            # modify root dictionary to include new trie branch
+            root_trie: dict = {
                 **root_trie,
                 word_trie_key: {}
             }
 
-            print(new_root_trie)
+            print(root_trie)
+
+            # new_word_trie: dict = word_trie[word_trie_key]
+            # new_word_trie_keys: list = list(new_word_trie.keys())
+            # new_word_trie_key: str = new_word_trie_keys[0]
 
             # new_root_trie: dict = root_trie[word_trie_key]
             # new_root_trie_keys: list = list(root_trie.keys())
             # new_root_trie_key: str = new_root_trie_keys[0]
+
+            # return self._add_trie_to_root(
+            #     word_trie=new_word_trie,
+            #     word_trie_keys=new_word_trie_keys,
+            #     word_trie_key=new_word_trie_key,
+            #     root_trie=new_root_trie,
+            #     root_trie_keys=new_root_trie_keys,
+            #     root_trie_key=new_root_trie_key,
+            # )
 
     def add_word(self, word: str):
         word_trie: dict = self._generate_word_trie(word)
