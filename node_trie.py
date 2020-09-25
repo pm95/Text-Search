@@ -22,10 +22,10 @@ class Trie:
         for node in self.children:
             if len(self.children) > 0:
                 curr = node._generate_trie(level+1)
-            children_str += curr + ", "
+            children_str += curr
 
-        return "\n%s%s: [%s]" % (
-            "\t"*level,
+        return "\n%s%s%s" % (
+            " "*level,
             self.value,
             children_str,
         )
@@ -77,4 +77,5 @@ t = Trie()
 t.add_word("test")
 t.add_word("tea")
 t.add_word("xray")
+t.add_word("dog")
 t.print()
