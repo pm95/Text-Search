@@ -9,6 +9,8 @@ class Trie:
         self.value = value
         self.children: list = []
 
+    # private methods
+
     def _add_node(self, node: "Trie") -> bool:
         child: Trie
         for child in self.children:
@@ -65,6 +67,14 @@ class Trie:
                     children=children[len(children)-1].children,
                     i=0
                 )
+
+    def _search_word(self, word: str) -> bool:
+        print(word)
+
+    # public methods
+
+    def search_word(self, word: str):
+        return self._search_word(word=word)
 
     def add_word(self, word: str):
         self._add_word(word=word, w=0, children=self.children, i=0)
