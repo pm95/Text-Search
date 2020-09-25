@@ -26,8 +26,8 @@ class Trie:
                 curr = node._generate_trie(level+1)
             children_str += curr
 
-        return "\n%s%s%s" % (
-            " "*level,
+        return "\n|%s%s%s" % (
+            "-"*level,
             self.value,
             children_str,
         )
@@ -72,7 +72,7 @@ class Trie:
             )
 
     def _search_word(self, word: str) -> bool:
-        print(word)
+        return False
 
     # public methods
 
@@ -92,3 +92,8 @@ t.add_word("xray")
 t.add_word("toro")
 t.add_word("xylophone")
 t.print()
+
+
+word = "ace"
+word_found = t.search_word(word=word)
+print("was %s found? %s" % (word, word_found))
