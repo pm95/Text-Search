@@ -89,14 +89,12 @@ class Trie:
 t = Trie()
 
 with open("./data.txt", "r") as fin:
-    text = fin.read()
+    text = fin.readlines()
     for line in text:
-        print(line)
+        words = line.split(" ")
+        for word in words:
+            t.add_word(word.lower())
 
-t.add_word("test")
-t.add_word("xray")
-t.add_word("toro")
-t.add_word("xylophone")
 t.print()
 
 
