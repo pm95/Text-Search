@@ -41,7 +41,7 @@ class Trie:
         # main list of children nodes is empty, add first node to list
         if len(children) == 0:
             children.append(Trie(char))
-            self._add_word(
+            return self._add_word(
                 word=word,
                 w=w+1,
                 children=children[0].children,
@@ -50,23 +50,26 @@ class Trie:
 
         # otherwise, if list already contains children, traverse them until you find a matching one, or none
         else:
-            node: Trie = children[i]
-            # current node and char are the same
-            if node.value == char:
-                self._add_word(
-                    word=word,
-                    w=w+1,
-                    children=node.children,
-                    i=0
-                )
-            else:
-                children.append(Trie(char))
-                self._add_word(
-                    word=word,
-                    w=w+1,
-                    children=children[len(children)-1].children,
-                    i=0
-                )
+            while i < len(children):
+                node: Trie = children[i]
+
+                # current node and char are the same
+                if node.value == char:
+                    return self._add_word(
+                        word=word,
+                        w=w+1,
+                        children=node.children,
+                        i=0
+                    )
+                i += 1
+
+            children.append(Trie(char))
+            return self._add_word(
+                word=word,
+                w=w+1,
+                children=children[len(children)-1].children,
+                i=0
+            )
 
     def _search_word(self, word: str) -> bool:
         print(word)
@@ -85,7 +88,6 @@ class Trie:
 
 t = Trie()
 t.add_word("test")
-t.add_word("tea")
 t.add_word("xray")
-t.add_word("dog")
+t.add_word("toro")
 t.print()
