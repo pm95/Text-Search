@@ -105,16 +105,17 @@ class Trie:
 
 t = Trie()
 
-with open("./data.txt", "r") as fin:
+with open("./data.txt", "r", newline="\n") as fin:
     text = fin.readlines()
+    line: str
     for line in text:
-        words = line.split(" ")
+        words = line.strip().split(' ')
         for word in words:
             t.add_word(word.lower())
 
 t.print()
 
 
-word = "contr"
+word = "hola"
 word_found = t.search_word(word=word)
 print("was %s found? %s" % (word, word_found))
