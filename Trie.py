@@ -105,7 +105,7 @@ class Trie:
 
 t = Trie()
 
-with open("./data.txt", "r", newline="\n") as fin:
+with open("./lorem.txt", "r", newline="\n") as fin:
     text = fin.readlines()
     line: str
     for line in text:
