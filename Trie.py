@@ -1,6 +1,7 @@
 # Author: Pietro Malky
 # Date: 09/25/2020
-# Purpose: Node-based trie
+# Purpose: Node-based trie for efficient text search
+# ToDo's: reduce computational overhead when constructing initial Trie
 
 
 class Trie:
@@ -105,7 +106,9 @@ class Trie:
 
 t = Trie()
 
-with open("./lorem.txt", "r", newline="\n") as fin:
+# text_read_start, text_read_end, word_create_start, word_create_end = 0
+
+with open("./shakespeare.txt", "r", newline="\n") as fin:
     text = fin.readlines()
     line: str
     for line in text:
@@ -113,9 +116,8 @@ with open("./lorem.txt", "r", newline="\n") as fin:
         for word in words:
             t.add_word(word.lower())
 
-t.print()
-
-
-word = "hola"
-word_found = t.search_word(word=word)
-print("was %s found? %s" % (word, word_found))
+while True:
+    print(len(t.children))
+    word = input("Enter a word to search in Shakespeare: ")
+    word_found = t.search_word(word=word)
+    print("was %s found? %s\n" % (word, word_found))
