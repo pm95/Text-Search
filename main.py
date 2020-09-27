@@ -4,7 +4,7 @@ t = Trie()
 
 # text_read_start, text_read_end, word_create_start, word_create_end = 0
 
-with open("./shakespeare.txt", "r", newline="\n") as fin:
+with open("./assets/shakespeare.txt", "r", newline="\n") as fin:
     text = fin.readlines()
     line: str
     for line in text:
