@@ -57,15 +57,16 @@ class Trie
                         w + 1,
                         node.children,
                         0);
-
-                Trie t(_char);
-                children.push_back(t);
-                return _add_word(
-                    word,
-                    w + 1,
-                    children.at(children.size() - 1).children,
-                    0);
+                i++;
             }
+
+            Trie t(_char);
+            children.push_back(t);
+            return _add_word(
+                word,
+                w + 1,
+                children.at(children.size() - 1).children,
+                0);
         }
     }
 
@@ -79,11 +80,21 @@ public:
     {
         cout << this->value << endl;
     }
+
+    void add_word(string word)
+    {
+        _add_word(
+            word,
+            0,
+            children,
+            0);
+    }
 };
 
 int main()
 {
     Trie t;
+    t.add_word("hola");
     t.print_value();
 
     return 0;
