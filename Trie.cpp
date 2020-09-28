@@ -24,7 +24,7 @@ class Trie
         return true;
     }
 
-    void _add_word(string word, int w, vector<Trie> &children)
+    void _add_word(string word, int w, vector<Trie> &_children)
     {
         if (w >= word.length())
             return;
@@ -32,39 +32,41 @@ class Trie
         char _char = word[w];
 
         // if main list of children nodes is empty, add first node to lists
-        if (children.size() == 0)
+        if (_children.size() == 0)
         {
             Trie t(_char);
-            children.push_back(t);
+            _children.push_back(t);
             _add_word(
                 word,
                 w + 1,
-                children[0].children);
+                _children[0].children);
         }
 
         // otherwise, traverse existing nodes until you find a matching one, or none
         else
         {
             int i = 0;
-            while (i < children.size())
+            while (i < _children.size())
             {
-                Trie node = children.at(i);
+                Trie node = _children.at(i);
 
                 // current node and char are the same
                 if (node.value == _char)
+                {
                     _add_word(
                         word,
                         w + 1,
                         node.children);
+                }
                 i++;
             }
 
             Trie t(_char);
-            children.push_back(t);
+            _children.push_back(t);
             _add_word(
                 word,
                 w + 1,
-                children.at(children.size() - 1).children);
+                _children.at(_children.size() - 1).children);
         }
     }
 
@@ -118,6 +120,11 @@ int main()
 {
     Trie t;
     t.add_word("hola");
+    t.add_word("como");
+    t.add_word("canonical");
+    t.add_word("estas");
+    t.add_word("horario");
+    t.add_word("erasmus");
     t.print_trie();
     return 0;
 }

@@ -33,11 +33,13 @@ class Trie:
             children_str,
         )
 
-    def _add_word(self, word: str, w: int, children: list, i: int) -> list:  # done
+    def _add_word(self, word: str, w: int, children: list) -> None:  # done
         if w >= len(word):
             return
 
         char: str = word[w]
+
+        i: int = 0
 
         # if main list of children nodes is empty, add first node to list
         if len(children) == 0:
@@ -46,7 +48,6 @@ class Trie:
                 word=word,
                 w=w+1,
                 children=children[0].children,
-                i=0
             )
 
         # otherwise, traverse existing nodes until you find a matching one, or none
@@ -59,8 +60,7 @@ class Trie:
                     return self._add_word(
                         word=word,
                         w=w+1,
-                        children=node.children,
-                        i=0
+                        children=node.children
                     )
                 i += 1
 
@@ -68,8 +68,7 @@ class Trie:
             return self._add_word(
                 word=word,
                 w=w+1,
-                children=children[len(children)-1].children,
-                i=0
+                children=children[len(children)-1].children
             )
 
     def _search_word(self, word: str, w: int, children: list) -> bool:
@@ -98,7 +97,7 @@ class Trie:
         )
 
     def add_word(self, word: str):  # done
-        self._add_word(word=word, w=0, children=self.children, i=0)
+        self._add_word(word=word, w=0, children=self.children)
 
     def print(self):
         print(self._generate_trie(level=0))
