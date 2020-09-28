@@ -24,7 +24,7 @@ class Trie
         return true;
     }
 
-    void _add_word(string word, int w, vector<Trie> children, int i)
+    void _add_word(string word, int w, vector<Trie> &children)
     {
         if (w >= word.length())
             return;
@@ -36,38 +36,57 @@ class Trie
         {
             Trie t(_char);
             children.push_back(t);
-            return _add_word(
+            _add_word(
                 word,
                 w + 1,
-                children[0].children,
-                0);
+                children[0].children);
         }
 
         // otherwise, traverse existing nodes until you find a matching one, or none
         else
         {
+            int i = 0;
             while (i < children.size())
             {
                 Trie node = children.at(i);
 
                 // current node and char are the same
                 if (node.value == _char)
-                    return _add_word(
+                    _add_word(
                         word,
                         w + 1,
-                        node.children,
-                        0);
+                        node.children);
                 i++;
             }
 
             Trie t(_char);
             children.push_back(t);
-            return _add_word(
+            _add_word(
                 word,
                 w + 1,
-                children.at(children.size() - 1).children,
-                0);
+                children.at(children.size() - 1).children);
         }
+    }
+
+    string _generate_trie(int level)
+    {
+        string children_str = "";
+        string curr = "";
+
+        // recursively generate trie string
+        for (Trie node : this->children)
+        {
+            if (this->children.size() > 0)
+                curr = node._generate_trie(level + 1);
+            children_str += curr;
+        }
+
+        // generate number of indentations
+        string indents = "";
+        for (int i = 0; i < level; i++)
+            indents += "-";
+
+        return "\n|" + indents + this->value + children_str;
     }
 
 public:
@@ -81,13 +100,17 @@ public:
         cout << this->value << endl;
     }
 
+    void print_trie()
+    {
+        cout << _generate_trie(0) << endl;
+    }
+
     void add_word(string word)
     {
         _add_word(
             word,
             0,
-            children,
-            0);
+            this->children);
     }
 };
 
@@ -95,7 +118,6 @@ int main()
 {
     Trie t;
     t.add_word("hola");
-    t.print_value();
-
+    t.print_trie();
     return 0;
 }

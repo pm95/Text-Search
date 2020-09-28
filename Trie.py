@@ -5,14 +5,14 @@
 
 
 class Trie:
-    def __init__(self, value: str = "*"):
+    def __init__(self, value: str = "*"):  # done
         super().__init__()
         self.value = value
         self.children: list = []
 
     # private methods
 
-    def _add_node(self, node: "Trie") -> bool:
+    def _add_node(self, node: "Trie") -> bool:  # done
         child: Trie
         for child in self.children:
             if child.value == node.value:
@@ -33,7 +33,7 @@ class Trie:
             children_str,
         )
 
-    def _add_word(self, word: str, w: int, children: list, i: int) -> list:
+    def _add_word(self, word: str, w: int, children: list, i: int) -> list:  # done
         if w >= len(word):
             return
 
@@ -97,7 +97,7 @@ class Trie:
             children=self.children
         )
 
-    def add_word(self, word: str):
+    def add_word(self, word: str):  # done
         self._add_word(word=word, w=0, children=self.children, i=0)
 
     def print(self):
