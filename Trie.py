@@ -39,7 +39,7 @@ class Trie:
 
         char: str = word[w]
 
-        # main list of children nodes is empty, add first node to list
+        # if main list of children nodes is empty, add first node to list
         if len(children) == 0:
             children.append(Trie(char))
             return self._add_word(
@@ -49,7 +49,7 @@ class Trie:
                 i=0
             )
 
-        # otherwise, if list already contains children, traverse them until you find a matching one, or none
+        # otherwise, traverse existing nodes until you find a matching one, or none
         else:
             while i < len(children):
                 node: Trie = children[i]
@@ -102,3 +102,12 @@ class Trie:
 
     def print(self):
         print(self._generate_trie(level=0))
+
+    def print_root(self):
+        node: Trie
+        for node in self.children:
+            print(node.value)
+
+    def save_trie_to_disk(self, path="./trie.txt"):
+        with open(path, "w") as fout:
+            fout.write(self._generate_trie(0))
