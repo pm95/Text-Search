@@ -1,0 +1,4 @@
+# Ignore cache-containing directories
+.vscode/
+__pycache__/
+*.dSYM/
