@@ -76,7 +76,7 @@ class Trie
         // recursively generate trie string
         for (Trie node : this->children)
         {
-            if (children.size() > 0)
+            if (this->children.size() > 0)
                 curr = node._generate_trie(level + 1);
             children_str += curr;
         }
@@ -121,6 +121,9 @@ int main()
     t.add_word("horario");
     t.add_word("amigo");
     t.add_word("hace");
+    t.add_word("arrivederchi");
+    t.add_word("arrivederchi");
+    t.add_word("arrivederchi");
     t.add_word("arrivederchi");
     t.print_trie();
     return 0;
