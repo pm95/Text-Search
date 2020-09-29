@@ -36,7 +36,7 @@ class Trie
         {
             Trie t(_char);
             _children.push_back(t);
-            _add_word(
+            return _add_word(
                 word,
                 w + 1,
                 _children[0].children);
@@ -48,22 +48,20 @@ class Trie
             int i = 0;
             while (i < _children.size())
             {
-                Trie node = _children.at(i);
-
                 // current node and char are the same
-                if (node.value == _char)
+                if (_children.at(i).value == _char)
                 {
-                    _add_word(
+                    return _add_word(
                         word,
                         w + 1,
-                        node.children);
+                        _children.at(i).children);
                 }
                 i++;
             }
 
             Trie t(_char);
             _children.push_back(t);
-            _add_word(
+            return _add_word(
                 word,
                 w + 1,
                 _children.at(_children.size() - 1).children);
@@ -78,7 +76,7 @@ class Trie
         // recursively generate trie string
         for (Trie node : this->children)
         {
-            if (this->children.size() > 0)
+            if (children.size() > 0)
                 curr = node._generate_trie(level + 1);
             children_str += curr;
         }
@@ -112,7 +110,7 @@ public:
         _add_word(
             word,
             0,
-            this->children);
+            children);
     }
 };
 
@@ -120,11 +118,10 @@ int main()
 {
     Trie t;
     t.add_word("hola");
-    t.add_word("como");
-    t.add_word("canonical");
-    t.add_word("estas");
     t.add_word("horario");
-    t.add_word("erasmus");
+    t.add_word("amigo");
+    t.add_word("hace");
+    t.add_word("arrivederchi");
     t.print_trie();
     return 0;
 }
