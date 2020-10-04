@@ -44,7 +44,6 @@ string KeypadConverter::_convert()
 
     while (1)
     {
-
         //  setup local indeces
         int _i = numbers[i];
         int _j = _counts[_i] - 1;
@@ -82,7 +81,7 @@ string KeypadConverter::convert_number(string &number)
 
 int main()
 {
-    string num = "2223323";
+    string num = "2223323555";
 
     KeypadConverter kpc;
     string result = kpc.convert_number(num);
