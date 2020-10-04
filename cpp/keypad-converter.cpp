@@ -1,3 +1,14 @@
+/*
+Author: Pietro Malky
+Date: 10/04/2020
+Purpose: Telephone keypad text resolver
+    * Like texting in old times, if you wanted to generate the letter 'B' you'd have to press the key for number 2, twice. 
+    * If You wanted the letter 'Y', you needed to press the key for 0, 3 times
+    * Therefore I devised an algorithm to take in a sequence of number, e.g. 7444338777666, and output it's corresponding string, in this case, "PIETRO"
+    * I first wrote the algorithm in Python and later re-wrote in in C++ for more efficient runtime
+    * The time complexity is O(N), w.r.t. the length of the original number sequence string. This time complexity neglects string appending overhead 
+*/
+
 #include <iostream>
 using namespace std;
 
@@ -18,16 +29,16 @@ KeypadConverter::KeypadConverter() : _result(""),
                                      _number(""),
                                      _counts{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                                      _letter_mappings{
-                                         {'@', '@', '@', '@'},
-                                         {'@', '@', '@', '@'},
-                                         {'A', 'B', 'C', '@'},
-                                         {'D', 'E', 'F', '@'},
-                                         {'G', 'H', 'I', '@'},
-                                         {'J', 'K', 'L', '@'},
-                                         {'M', 'N', 'O', '@'},
-                                         {'P', 'Q', 'R', 'S'},
-                                         {'T', 'U', 'V', '@'},
-                                         {'W', 'X', 'Y', 'Z'}} {};
+                                         /*0*/ {'@', '@', '@', '@'},
+                                         /*1*/ {'@', '@', '@', '@'},
+                                         /*2*/ {'A', 'B', 'C', '@'},
+                                         /*3*/ {'D', 'E', 'F', '@'},
+                                         /*4*/ {'G', 'H', 'I', '@'},
+                                         /*5*/ {'J', 'K', 'L', '@'},
+                                         /*6*/ {'M', 'N', 'O', '@'},
+                                         /*7*/ {'P', 'Q', 'R', 'S'},
+                                         /*8*/ {'T', 'U', 'V', '@'},
+                                         /*9*/ {'W', 'X', 'Y', 'Z'}} {};
 
 string KeypadConverter::_convert()
 {
@@ -80,7 +91,7 @@ string KeypadConverter::convert_number(string &number)
 
 int main()
 {
-    string num = "2223323555";
+    string num = "7444338777666";
 
     KeypadConverter kpc;
     string result = kpc.convert_number(num);
