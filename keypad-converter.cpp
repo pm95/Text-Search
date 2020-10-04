@@ -57,7 +57,7 @@ string KeypadConverter::_convert()
 
         if (_i == numbers[j])
         {
-            _counts[_i] += 1;
+            _counts[_i] = (_counts[_i] + 1) % 4;
             j += 1;
         }
         else
